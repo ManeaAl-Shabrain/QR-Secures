@@ -1,43 +1,38 @@
 # Architecture
 
-## Current Base44 application
+## Application technology
 
-The supplied technical report describes this stack:
+The technical report lists the following technology for the current Base44 application.
 
-| Layer | Documented technology |
+| Part | Technology described in the report |
 | --- | --- |
-| Frontend | React 18, Tailwind CSS, Framer Motion |
+| Interface | React 18, Tailwind CSS, and Framer Motion |
 | Components | shadcn/ui and Radix UI |
-| Data fetching | TanStack Query v5 |
-| Routing | React Router v6 |
-| Platform | Base44 entities, authentication, integrations, and functions |
-| AI analysis | Base44 `InvokeLLM`, documented as GPT-4o-mini based |
-| QR decoding | `html5-qrcode` |
-| Alerts | Slack OAuth connector |
+| Data requests | TanStack Query version 5 |
+| Page routing | React Router version 6 |
+| Platform | Base44 authentication, data entities, integrations, and functions |
+| Threat analysis | Base44 InvokeLLM, described as using GPT 4o mini |
+| QR scanning | html5 qrcode |
+| Alerts | Slack through OAuth |
 
-## Documented data model
+## Stored information
 
-- `ScanHistory` stores the submitted content, scan type, assessment, evidence, and result details.
-- `ThreatReport` stores community threat or false-positive reports and moderation data.
-- `Investigation` groups related scans into a case.
-- `Watchlist` stores domains, URL patterns, keywords, or threat types to monitor.
-- `AutomationRule` defines incident-response triggers and actions.
-- `ScanAnnotation` attaches analyst notes and findings to a scan.
-- `UserPreferences` stores dashboard and display preferences.
+`ScanHistory` stores the scanned content and its result. `ThreatReport` stores reports from users, including reports of incorrect classifications. `Investigation` groups related scans into a case. `Watchlist` stores domains, patterns, keywords, or threat types that analysts want to monitor. `AutomationRule` stores the conditions and actions used for incident response. `ScanAnnotation` stores analyst notes. `UserPreferences` stores display and dashboard choices.
 
-Older materials also mention `Playbook` and `PlaybookLog`. The Base44 activity record says Playbook references were later removed from routing and the results flow. These entities may still exist for compatibility and need source verification.
+Older files also mention `Playbook` and `PlaybookLog`. The Base44 activity history says that Playbook links and result page references were later removed. The entities may still exist for compatibility, but the application source is needed to confirm that.
 
-## Trust boundaries
+## Security boundaries
 
-The browser handles authentication, camera input, display, and user actions. Potentially dangerous URL inspection should occur in server-side functions. Base44 stores entity records and applies access rules. External integrations receive only the information required for the requested alert.
+The browser handles sign in, camera access, display, and user actions. Checks involving a suspicious address should run in a protected backend function. Base44 stores the records and applies access rules. Slack should receive only the information required for an alert.
 
-## Redirect handling
+## Redirect checks
 
-Presentation materials describe a server-side function that follows up to ten redirects with HTTP header requests and reports domain changes. This design reduces direct client exposure during analysis, but it does not create absolute isolation: the server still contacts attacker-controlled infrastructure, HEAD may behave differently from GET, DNS can change, and redirects can target private network addresses unless the function blocks them. Production code should enforce protocol allowlists, DNS and IP checks on every hop, timeouts, response-size limits, and outbound-network restrictions.
+The presentation describes a backend function that follows as many as ten redirects and reports when the destination domain changes. This can reduce exposure on the user's device, but the server still contacts a system controlled by someone else. An HTTP HEAD request can also behave differently from a normal page request.
 
-## Authorization requirements
+A production version should allow only HTTP and HTTPS, reject private and reserved network addresses at every redirect, set strict time limits, restrict response sizes, and limit outbound network access. These controls help prevent the redirect checker from being used to reach internal systems.
 
-Frontend role checks improve navigation but do not protect data. Every function and entity operation should authenticate the caller and authorize access to the specific record. Service-role access should be narrow and explicitly scoped.
+## Access control
 
-The September 2026 Base44 security review identified four functions that lacked caller verification: `autoSlackThreatAlert`, `handleThreatDetection`, `postMalwareToAlerts`, and `syncSlackResults`. The plan did not allow those backend functions to be modified. Treat this as an open release blocker until the functions verify either an authenticated, authorized user or a signed internal automation request.
+Hiding a menu item does not protect data. Every backend request must identify the caller and confirm that the caller can access the requested record. Any use of the Base44 service role should be limited to the exact records and actions needed.
 
+The September 2026 Base44 security review found four functions without caller verification: `autoSlackThreatAlert`, `handleThreatDetection`, `postMalwareToAlerts`, and `syncSlackResults`. The current Base44 plan did not allow those backend functions to be changed. These functions should be treated as an open security issue until they accept only an authorized user or a verified internal automation request.

@@ -1,30 +1,29 @@
-# Evidence and Claim Status
+# Evidence Review
 
-This register prevents results from different project phases from being mixed together.
+The supplied files describe several versions of QR Secures. This page keeps the results from those versions separate and shows which statements still need proof.
 
-| Claim | Source in supplied material | Status for public use |
+| Statement | Where it appears | How it can be described |
 | --- | --- | --- |
-| Practicum dataset contained about 150,000 labeled URLs with a 70/15/15 split | Final practicum report | Reported academic result; underlying dataset split and training artifacts are not in this repository |
-| CNN achieved 0.982 accuracy and 0.995 ROC-AUC | Final practicum report | Reported academic result; reproducibility package is unavailable |
-| Hybrid engine classified 48 of 50 challenge URLs correctly | Final practicum report | Reported academic result; test cases are unavailable |
-| Current app uses Base44 `InvokeLLM` and community context | Base44 technical report and live project history | Documented implementation; source export unavailable |
-| Current app resolves redirect chains server-side up to ten hops | Presentation and Base44 project history | Documented behavior; source and controlled test evidence unavailable |
-| Current app detected 100% of 50 redirect attacks | Presentation/script only | Unverified; omit from headline claims |
-| Current app achieved 94% phishing accuracy versus 68% for legacy databases | Presentation/script only | Unverified comparison; omit from headline claims |
-| Worst-case latency improved from 8 seconds to 3.2 seconds | Presentation/script only | Unverified benchmark; omit from headline claims |
-| Community intelligence improves accuracy by 26 percentage points | User narrative and presentation | Unverified and appears derived from the 94% versus 68% comparison |
-| Automated response completed more than 28 executions across five scenarios | User narrative | Unverified; execution logs unavailable |
-| All scan data has effective row-level protection | Base44 security activity says rules were added for eight entities | Needs regression and authorization testing |
+| The practicum used about 150,000 labeled URLs with a 70, 15, and 15 percent split | Final practicum report | A result reported by the team. The dataset split and training files are not included |
+| The CNN reached 0.982 accuracy and 0.995 ROC AUC | Final practicum report | A result reported by the team. It cannot yet be reproduced from this repository |
+| The hybrid detector classified 48 of 50 difficult URLs correctly | Final practicum report | A result reported by the team. The 50 test cases are not included |
+| The current application uses Base44 InvokeLLM and community reports | Base44 technical report and project history | A documented feature. Source export is not available |
+| Redirects are checked on the server for as many as ten hops | Presentation and Base44 project history | Documented behavior that still needs a source review and a controlled test |
+| All 50 redirect attacks were detected | Presentation and speaker script | Not independently supported. It should not appear as a headline result |
+| Phishing accuracy was 94 percent compared with 68 percent for older databases | Presentation and speaker script | Not independently supported. The comparison method and test data are missing |
+| The longest scan time fell from 8 seconds to 3.2 seconds | Presentation and speaker script | Not independently supported. Benchmark logs are missing |
+| Community data improved accuracy by 26 percentage points | Project description and presentation | Not independently supported. It appears to come from the 94 and 68 percent comparison |
+| The alert system completed more than 28 runs in five scenarios | Project description | Not independently supported by logs supplied for the repository |
+| Row level rules protect all scan data | Base44 security history says rules were added for eight entities | Requires testing after the security changes |
 
-## Important distinctions
+## Differences between project stages
 
-The CNN metrics belong to the Fall 2025 practicum detector. The present Base44 application is documented as using LLM-assisted analysis. Without the application source and deployment configuration, the repository does not claim that the current app runs the CNN model.
+The CNN results belong to the Fall 2025 practicum detector. The current Base44 application is described as using a language model. The available material does not show that the Base44 application runs the CNN, so the repository does not combine their results.
 
-The supplied app reports describe community moderation in two ways: automatic verification or rejection at five votes, and a combined voting plus analyst-approval process. The public documentation describes both as an unresolved implementation detail.
+The files also disagree about community moderation. One version says that five votes automatically verify or reject a report. Another version requires an analyst to approve it. The public documentation records this difference instead of choosing one version without proof.
 
-The reports also vary on whether Community Reports is available to all users or only analyst roles. The live project history supports submission by all users and analyst/admin review, but the deployed authorization should be tested.
+Some files say that Community Reports is open to every user. Others place it behind an analyst role. The project history suggests that all users can submit reports and that analysts or administrators review them. This must be checked in the deployed application.
 
-## Reproducibility needed
+## What is needed to verify the results
 
-To convert reported results into verified results, add a versioned dataset manifest, preprocessing code, fixed train/test identifiers, model configuration, saved model hash, evaluation script, challenge URL set, expected outputs, environment lockfile, and dated benchmark logs. Sensitive or live malicious URLs should be replaced with safe fixtures or hashes where appropriate.
-
+A complete research package would need a dataset manifest, preprocessing code, fixed training and test identifiers, model settings, a saved model hash, an evaluation script, the challenge test set, expected outputs, dependency versions, and dated benchmark logs. Live malicious links should be replaced with safe examples or hashes when possible.

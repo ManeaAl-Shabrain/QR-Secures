@@ -2,57 +2,56 @@
 
 ## Scan workflow
 
-Users sign in, select the camera scanner or manual URL check, and submit content for analysis. The application validates the input, gathers security signals, stores the result in scan history, and opens a detailed results page.
+After signing in, the user can scan a QR code with the camera or type a web address. The application checks the input, gathers available security information, saves the scan, and displays the result.
 
-The results page may show a risk score, classification, confidence, URL details, redirect information, SSL status, phishing indicators, social-engineering indicators, detected threat types, and a recommended action. Treat these fields as decision support rather than a definitive verdict.
+The result can include a risk score, classification, confidence value, URL details, redirects, SSL status, phishing signs, manipulation tactics, detected threats, and a recommendation. These details help the user make a decision, but they do not prove that a website is safe or dangerous.
 
-## Pages
+## Splash and Home
 
-### Splash and Home
+The Splash page introduces the application and then opens Home. Home shows the account, recent scan totals, scanning options, shortcuts, and any tools available to the user.
 
-The splash screen introduces the product and routes to Home. Home shows the signed-in account, recent scan statistics, scan entry points, protection indicators, quick links, and role-specific tools.
+## Scanner and Manual Scan
 
-### Scanner and Manual Scan
+Scanner uses the device camera through `html5-qrcode`. It can control the flashlight on supported devices. Manual Scan accepts a web address without using the camera. Both options follow the same documented analysis process.
 
-Scanner uses the device camera through `html5-qrcode` and offers a torch control when supported. Manual Scan accepts a URL without camera access. Both paths feed the same documented application analysis flow.
+## Results
 
-### Results
+Results shows the saved assessment. From this page, the user can copy the address, submit a report, send an alert, start another scan, or return home. The application asks for clear confirmation before opening a risky address. Even a safe result can become outdated if the destination changes later.
 
-Results displays the stored assessment and offers copy, report, alert, rescan, and navigation actions. Opening a risky destination should require clear user intent. A safe classification cannot guarantee that the destination remains safe.
+## Dashboard and History
 
-### Dashboard and History
+Dashboard summarizes scan totals, risk levels, trends, and threat categories. History lets users search, filter, sort, and review previous scans.
 
-Dashboard summarizes scan volume, risk distribution, trends, and threat categories. History supports search, filters, sorting, and detailed review of past scans.
+## Community Reports
 
-### Community Reports
+Users can report a threat or say that an earlier result was incorrect. A report records the address, category, description, supporting evidence, votes, and review status.
 
-Users can report a threat or a false positive. Reports include the URL, category, description, evidence, vote counts, voters, and review status. Current materials describe threshold-based status changes and analyst review differently, so the exact moderation rule requires source verification.
+Some project files say that five votes change the status automatically. Other files say that an analyst must approve the report. The source code is needed to settle this difference.
 
-Verified threat evidence can inform later scans. The application conversation records a September 2026 change intended to include verified false-positive evidence too, but this should be tested in the deployed app.
+Verified threat reports can help with later scans of the same address. The Base44 project history also records a September 2026 change meant to include confirmed incorrect results. This behavior still needs a practical test.
 
-### Threat Hunting
+## Threat Hunting
 
-Analysts and administrators can filter scans by time, classification, threat type, score, and text. The page also provides scan details, annotations, investigations, and watchlists.
+Analysts and administrators can filter scans by date, classification, threat type, score, or search text. They can open a scan, add notes, create an investigation, and manage watchlists.
 
-### Incident Response
+## Incident Response
 
-Automation settings configure rules for suspicious or malicious results and actions such as Slack or email notification. Earlier Playbook UI references were removed, while the Automation Settings page remains visible in the live project. Documentation therefore uses the current page name.
+Automation Settings contains rules for suspicious or malicious results. A rule can trigger a Slack or email notification. Older project files call this feature Playbooks. The Playbooks page was later removed, while Automation Settings remains in the current project.
 
-### Account and User Management
+## Account and User Management
 
-Account displays profile and preference information. User Management is restricted to administrators and supports user lookup, invitations, and role changes.
+Account shows profile and preference information. User Management is available to administrators for finding users, sending invitations, and changing roles.
 
-## Roles
+## Access by role
 
 | Capability | User | Analyst | Admin |
 | --- | :---: | :---: | :---: |
 | Scan QR codes and URLs | Yes | Yes | Yes |
 | View personal history and dashboard | Yes | Yes | Yes |
 | Submit community reports | Yes | Yes | Yes |
-| Review and vote on reports | Verify in app | Yes | Yes |
-| Threat hunting and investigations | No | Yes | Yes |
-| Incident-response settings | No | Yes | Yes |
-| User management | No | No | Yes |
+| Review and vote on reports | Needs confirmation | Yes | Yes |
+| Use threat hunting and investigations | No | Yes | Yes |
+| Change incident response settings | No | Yes | Yes |
+| Manage users | No | No | Yes |
 
-Access must be enforced by backend authorization and row-level rules, not only by hidden navigation links.
-
+The backend must check these permissions whenever someone reads or changes data. Hiding a page link does not protect the underlying information.

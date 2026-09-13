@@ -1,90 +1,59 @@
 # QR Secures
 
-QR Secures is a mobile-first cybersecurity application that checks QR-code content and manually entered URLs before a user opens them. The current application uses a Base44 backend, a React interface, AI-assisted URL analysis, SSL checks, community reports, scan history, investigation tools, and Slack alerting.
+QR Secures helps people check a QR code or web address before opening it. The application examines the link for warning signs and explains the result in plain language. It can also save previous scans, collect community reports, support investigations, and send alerts to Slack.
 
-**Live application:** [qrsecures.base44.app](https://qrsecures.base44.app)
+Live application: [qrsecures.base44.app](https://qrsecures.base44.app)
 
-> This repository documents the academic project and the deployed application. The Base44 source export is not included because the current Base44 plan does not permit ZIP export. No credentials, user records, private scan history, or repeated draft submissions are stored here.
+This repository documents the academic project and the working Base44 application. It does not contain the application source because the current Base44 plan does not allow source export. It also excludes account details, scan records, credentials, and repeated drafts of the same academic files.
 
-## Project evolution
+## How the project developed
 
-QR Secures developed in two related phases:
+The work developed through two course stages.
 
-1. **Practicum (Fall 2025):** a character-level CNN, heuristic URL checks, SSL/TLS inspection, and a weighted decision engine were evaluated as a malicious-URL detector.
-2. **Capstone (Winter 2026):** the project became a user-facing Base44 application with QR scanning, AI-assisted analysis, dashboards, community reporting, threat hunting, investigations, watchlists, and Slack integration.
+1. During the Fall 2025 practicum, the team trained and compared deep learning models for malicious URL detection. The final design combined a character level CNN with URL rules and SSL certificate checks.
+2. During the Winter 2026 capstone, the team developed a Base44 application that people can use from a phone or computer. It added QR scanning, URL analysis, history, dashboards, community reports, investigation tools, watchlists, and Slack alerts.
 
-The current application should not be described as if it directly runs the earlier CNN unless the exported implementation or deployment configuration proves that connection. See [Evidence and claim status](docs/evidence-and-claims.md).
+The available material does not prove that the current Base44 application runs the earlier CNN model. The two stages are connected, but their results must be described separately. The [evidence review](docs/evidence-and-claims.md) explains this distinction.
 
-## Current application
+## What the application can do
 
-The application provides:
+Users can scan a QR code with the camera or enter a web address manually. The result includes a score from 0 to 100, a risk level, a confidence value, and the reasons behind the assessment.
 
-- camera-based QR scanning and manual URL entry;
-- risk results with a 0-100 score, classification, confidence, and supporting indicators;
-- scan history and analytics;
-- community threat and false-positive reports;
-- analyst tools for hunting, investigations, annotations, and watchlists;
-- role-based access for users, analysts, and administrators;
-- manual and automated Slack alert workflows.
+The application also includes scan history and charts. Community members can report threats or incorrect results. Analysts can review activity, add notes, group scans into investigations, and monitor domains or patterns. Administrators can manage users. Slack integration can send security alerts to a selected channel.
 
-The bottom navigation exposes Home, Scan, and History. Additional pages appear according to role.
+The main navigation contains Home, Scan, and History. Extra pages appear when the signed in account has the required role.
 
-## Architecture
+## How a scan moves through the application
 
 ```mermaid
 flowchart LR
-    A[QR camera or manual URL] --> B[Input validation]
+    A[QR camera or manual URL] --> B[Input check]
     B --> C[Redirect and URL checks]
-    C --> D[Community evidence lookup]
-    D --> E[AI-assisted analysis]
+    C --> D[Community report check]
+    D --> E[Threat analysis]
     E --> F[Risk result]
-    F --> G[Scan history and dashboard]
+    F --> G[History and dashboard]
     F --> H[Community report]
     F --> I[Slack alert]
     G --> J[Threat hunting and investigations]
 ```
 
-The architecture above reflects the documented Base44 application. Some implementation details remain subject to source-code verification.
+This diagram reflects the application material reviewed for this repository. The source code is needed to confirm some details.
 
-## Repository map
+## Repository contents
 
-```text
-.
-├── README.md
-├── SECURITY.md
-├── LICENSE
-├── docs/
-│   ├── app-guide.md
-│   ├── architecture.md
-│   ├── evidence-and-claims.md
-│   └── project-history.md
-└── academic/
-    ├── capstone/
-    └── practicum/
-```
-
-Only the strongest final artifacts are retained. Templates, duplicate exports, personal logbooks, speaker-script variants, and draft presentations were reviewed but intentionally omitted.
+The `docs` folder explains the application, architecture, evidence, and project history. The `academic` folder contains one final report from each course stage. Templates, duplicate exports, individual logbooks, draft slides, and repeated speaker scripts were reviewed and left out.
 
 ## Academic team
 
-- Manea Al-Shabrain, project leader
-- Sulaiman Abdo
-- Saeed Alsawaf
-- Mohammad Albustami
-- Salah Alharbi
-- Supervisor: Dr. Adnan
+Manea Al Shabrain led the project. The other team members were Sulaiman Abdo, Saeed Alsawaf, Mohammad Albustami, and Salah Alharbi. Dr. Adnan supervised the work.
 
 The project was completed in the B.Sc. Cyber Security and Data program at the College of Computing and Information Technology.
 
-## Responsible use
+## Using the application responsibly
 
-QR Secures provides risk guidance, not a guarantee that a URL is safe. AI output, SSL status, redirects, and community reports can each be incomplete or wrong. Do not submit confidential URLs, credentials, private tokens, internal hostnames, or personal information for analysis.
+QR Secures gives the user a security assessment. It cannot guarantee that a website is safe. A website can change after a scan, and any automated result can be wrong. Users should never submit passwords, private links, access tokens, internal addresses, or personal information.
 
-## Documentation
+## More information
 
-- [Application guide](docs/app-guide.md)
-- [Architecture](docs/architecture.md)
-- [Evidence and claim status](docs/evidence-and-claims.md)
-- [Project history](docs/project-history.md)
-- [Security policy](SECURITY.md)
-
+Read the [application guide](docs/app-guide.md), [architecture notes](docs/architecture.md), [evidence review](docs/evidence-and-claims.md), [project history](docs/project-history.md), and [security policy](SECURITY.md).
