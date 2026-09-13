@@ -42,7 +42,7 @@ This diagram reflects the application material reviewed for this repository. The
 
 ## Repository contents
 
-The `docs` folder explains the application, architecture, evidence, and project history. The `academic` folder contains one final report from each course stage. Templates, duplicate exports, individual logbooks, draft slides, and repeated speaker scripts were reviewed and left out.
+The `docs` folder explains the application, architecture, evidence, and project history. The `academic` folder contains the final material selected from each course stage. The capstone folder now includes the complete [Word defense report](academic/capstone/QR%20Secures%20Capstone%20Defense%20Report.docx), the earlier PDF report, and the final presentation. Templates, duplicate exports, individual logbooks, draft slides, and repeated speaker scripts were reviewed and left out.
 
 ## Academic team
 
