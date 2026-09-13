@@ -6,4 +6,8 @@ Thumbs.db
 .env
 .env.*
 node_modules/
-
+/*.pdf
+/*.docx
+/*.pptx
+/*.mp4
+/academic/capstone/*.pptx
